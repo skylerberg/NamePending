@@ -1,0 +1,7 @@
+Flask
+Flask-SQLAlchemy
+Flask-Login
+Flask-Principal
+Flask-AntiCsrf
+Flask-JSON
+Marshmallow>=3.0.0b7
