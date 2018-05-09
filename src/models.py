@@ -1,3 +1,5 @@
+from flask_login import UserMixin
+
 from . import db
 
 
@@ -20,13 +22,16 @@ class Comment(db.Model):
 class Submission(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    challenge_id = db.Column(db.Integer, db.ForeignKey('challenge.id'), nullable=False)
     title = db.Column(db.Text, nullable=False)
-    description = db.Column(db.Text, nullable=False)
+    content = db.Column(db.Text, nullable=False)
     score = db.Column(db.Integer, nullable=True)
 
+    user = db.relationship('User', backref='submissions', foreign_keys=[user_id])
+    challenge = db.relationship('Challenge', backref='submissions', foreign_keys=[challenge_id])
 
-class User(db.Model):
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.Text, nullable=False)
     email = db.Column(db.Text, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)

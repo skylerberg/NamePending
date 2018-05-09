@@ -5,6 +5,7 @@
     <div class="container-fluid">
       <span v-html="$options.filters.markdown(challenge.description)"></span>
     </div>
+    <router-link :to="`/challenges/1/submit`"><button class="btn btn-info">Submit</button></router-link>
   </div>
 </template>
 
@@ -24,6 +25,6 @@ function data() {
 }
 
 export default {
-  data: data
+  data: data,
 };
 </script>

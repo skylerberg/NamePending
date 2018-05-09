@@ -18,12 +18,12 @@ class SubmissionSchema(Schema):
     id = fields.Int(dump_only=True)
     title = fields.Str(allow_none=False)
     user_id = fields.Int()
-    description = fields.Str(allow_none=False)
+    submission_id = fields.Int()
+    content = fields.Str(allow_none=False)
     score = fields.Int(dump_only=True)
 
 
 class UserSchema(Schema):
     id = fields.Int(dump_only=True)
-    name = fields.Str(allow_none=False)
     email = fields.Email(allow_none=False)
     is_admin = fields.Bool(dump_only=True)

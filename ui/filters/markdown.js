@@ -5,7 +5,8 @@ Vue.filter('markdown', (value) => {
   if (!value) {
     return '';
   }
-  return marked.inlineLexer(value, [], {
+  marked.setOptions({
     sanitize: true,
   });
+  return marked(value);
 });
