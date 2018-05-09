@@ -1,0 +1,31 @@
+{
+  "name": "bounty",
+  "version": "0.0.1",
+  "description": "UI for basic bug bounty challenge",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --progress --mode development",
+    "prodbuild": "webpack --mode production",
+    "watch": "webpack --progress --mode development -w",
+    "start:dev": "webpack-dev-server"
+  },
+  "author": "Skyler Berg",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.1.1",
+    "jquery": "^3.3.1",
+    "marked": "^0.3.19",
+    "popper.js": "^1.14.3",
+    "vue": "^2.5.16",
+    "vue-router": "^3.0.1"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "file-loader": "^1.1.11",
+    "vue-loader": "^14.2.1",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.8.1",
+    "webpack-cli": "^2.1.3",
+    "webpack-dev-server": "^3.1.4"
+  }
+}
