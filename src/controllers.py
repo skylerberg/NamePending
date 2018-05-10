@@ -58,6 +58,17 @@ def post_challenge():
     return schema.dump(challenge)
 
 
+@app.route('/challenges/<int:challenge_id>/submissions')
+@as_json
+def get_submissions(challenge_id):
+    schema = SubmissionSchema()
+    submissions = Submission.query.filter(db.and_(
+        Submission.user_id == current_user.id,
+        Submission.challenge_id == challenge_id
+    )).all()
+    return schema.dump(submissions, many=True)
+
+
 @app.route('/challenges/<int:challenge_id>/submissions/<int:submission_id>')
 @as_json
 def get_submission(challenge_id, submission_id):
@@ -106,8 +117,3 @@ def post_comment(challenge_id, submission_id):
     session.add(comment)
     session.commit()
     return schema.dump(comment)
-
-
-@app.route('/users/<int:user_id>')
-def get_user(user_id):
-    pass

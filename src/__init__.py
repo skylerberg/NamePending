@@ -26,6 +26,7 @@ principals = Principal(app)
 
 
 import src.controllers  # noqa
+import src.admin_controllers  # noqa
 import src.headers  # noqa
 import src.session  # noqa
 

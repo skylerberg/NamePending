@@ -2,10 +2,10 @@
   <div>
     <b-header></b-header>
 
-    <div class="container-fluid">
+    <div class="container">
       <span v-html="$options.filters.markdown(challenge.description)"></span>
+      <router-link :to="`/challenges/1/submit`"><button class="btn btn-info">Submit</button></router-link>
     </div>
-    <router-link :to="`/challenges/1/submit`"><button class="btn btn-info">Submit</button></router-link>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ function data() {
   }).then((response) => {
     data.challenge = response;
   });
+
   return data;
 }
 

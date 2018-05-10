@@ -13,6 +13,9 @@ import submitBugPage from './components/submitBug.vue';
 import loginPage from './components/login.vue';
 import signupPage from './components/signup.vue';
 import viewSubmissionPage from './components/submission.vue';
+import adminPage from './components/admin.vue';
+import submissionsPage from './components/submissions.vue';
+import leadersPage from './components/leaders.vue';
 
 import headerComponent from './components/header.vue';
 
@@ -25,6 +28,9 @@ const routes = [
   { path: '/', component: challengePage },
   { path: '/login', component: loginPage },
   { path: '/signup', component: signupPage },
+  { path: '/admin', component: adminPage },
+  { path: '/submissions', component: submissionsPage },
+  { path: '/leaders', component: leadersPage },
   { path: '/challenges/:challengeId/submit', component: submitBugPage },
   { path: '/challenges/:challengeId/submissions/:submissionId', component: viewSubmissionPage },
 ];
