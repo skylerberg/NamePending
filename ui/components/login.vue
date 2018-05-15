@@ -1,7 +1,7 @@
 <template>
   <div style="max-width:500px" class="container">
     <br>
-    <h1 class="text-center display-4">Name Pending</h1>
+    <h1 class="text-center display-4">AppSec Challenges</h1>
     <br>
 
     <div class="jumbotron pb-1 pt-3">
