@@ -20,6 +20,9 @@
           </li>
         </div>
         <div class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link" @click.prevent="logout">Logout</a>
+          </li>
         </div>
       </div>
     </nav>
@@ -35,6 +38,15 @@ export default {
   computed: {
     navSelected: function() {
       return this.$store.state.navSelected;
+    },
+  },
+  methods: {
+    logout: function() {
+      $.post({
+        url: '/logout'
+      }).then(() => {
+        this.$router.push('/login');
+      });
     },
   },
 }

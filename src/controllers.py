@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from flask import request, current_app
+from flask import request, current_app, session
 from flask_json import as_json
-from flask_login import current_user, login_user
-from flask_principal import identity_changed, Identity
+from flask_login import current_user, login_user, logout_user
+from flask_principal import identity_changed, Identity, AnonymousIdentity
 
 from . import app, db
 from .schema import ChallengeSchema, CommentSchema, SubmissionSchema, UserSchema
@@ -37,6 +37,16 @@ def signup():
     login_user(user)
     identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
     return schema.dump(user)
+
+
+@app.route('/logout', methods=['POST'])
+@as_json
+def logout():
+    logout_user()
+    for key in ('identity.name', 'identity.auth_type'):
+        session.pop(key, None)
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
+    return {}
 
 
 @app.route('/challenges/<int:challenge_id>')
