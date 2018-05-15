@@ -5,9 +5,28 @@
     <div class="container">
       <div class="list-group">
         <h2>All Submissions</h2>
-        <template v-for="submission in submissions">
-          <router-link :to="`/challenges/1/submissions/${submission.id}`" class="list-group-item list-group-item-action">{{submission.title}}</router-link>
-        </template>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Submitted</th>
+              <th scope="col">User</th>
+              <th scope="col">Title</th>
+              <th scope="col">Triaged</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="submission in submissions">
+              <td>{{submission.created}}</td>
+              <td>{{submission.user.email}}</td>
+              <td>
+                <router-link :to="`/challenges/1/submissions/${submission.id}`">{{submission.title}}</router-link>
+              </td>
+              <td>
+                <b>NO</b>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -31,5 +50,8 @@ function data() {
 
 export default {
   data: data,
+  created: function() {
+    this.$store.commit('setNavSelected', 'admin');
+  },
 };
 </script>

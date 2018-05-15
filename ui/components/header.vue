@@ -9,13 +9,13 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <li class="nav-item active">
+          <li :class="{ active: navSelected === 'submissions'}" class="nav-item">
             <router-link class="nav-link" to="/submissions">Submissions</router-link>
           </li>
-          <li class="nav-item active">
+          <li :class="{ active: navSelected === 'leaderboard'}" class="nav-item">
             <router-link class="nav-link" to="/leaders">Leaderboard</router-link>
           </li>
-          <li class="nav-item active">
+          <li :class="{ active: navSelected === 'admin'}" class="nav-item">
             <router-link class="nav-link" to="/admin">Admin</router-link>
           </li>
         </div>
@@ -32,5 +32,10 @@ import Vue from 'vue';
 
 export default {
   name: 'b-header',
+  computed: {
+    navSelected: function() {
+      return this.$store.state.navSelected;
+    },
+  },
 }
 </script>

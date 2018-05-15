@@ -31,5 +31,8 @@ function data() {
 
 export default {
   data: data,
+  created: function() {
+    this.$store.commit('setNavSelected', 'submissions');
+  },
 };
 </script>

@@ -17,5 +17,8 @@ function data() {
 
 export default {
   data: data,
+  created: function() {
+    this.$store.commit('setNavSelected', 'leaderboard');
+  },
 };
 </script>

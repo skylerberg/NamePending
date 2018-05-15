@@ -3,6 +3,7 @@ import './style.scss';
 
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import Vuex from 'vuex';
 
 import App from './components/base.vue';
 
@@ -21,6 +22,7 @@ import headerComponent from './components/header.vue';
 import commentsComponent from './components/comments.vue';
 
 Vue.use(VueRouter);
+Vue.use(Vuex);
 
 Vue.component('b-header', headerComponent);
 Vue.component('b-comments', commentsComponent);
@@ -53,7 +55,19 @@ $.ajaxSetup({
   }
 })
 
+const store = new Vuex.Store({
+  state: {
+    navSelected: null,
+  },
+  mutations: {
+    setNavSelected (state, navSelected) {
+      state.navSelected = navSelected;
+    }
+  },
+});
+
 new Vue({
   router: router,
+  store: store,
   render: h => h(App),
 }).$mount('#app');
