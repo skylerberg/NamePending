@@ -18,10 +18,12 @@ import submissionsPage from './components/submissions.vue';
 import leadersPage from './components/leaders.vue';
 
 import headerComponent from './components/header.vue';
+import commentsComponent from './components/comments.vue';
 
 Vue.use(VueRouter);
 
 Vue.component('b-header', headerComponent);
+Vue.component('b-comments', commentsComponent);
 
 
 const routes = [

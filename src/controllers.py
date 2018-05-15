@@ -97,19 +97,22 @@ def post_submission(challenge_id):
 
 @app.route('/challenges/<int:challenge_id>/submissions/<int:submission_id>/comments')
 @as_json
-def get_comments(challenge_id, submission_id, comment_id):
-    SubmissionOwnerPermission(submission_id).test()
+def get_comments(challenge_id, submission_id):
+    #SubmissionOwnerPermission(submission_id).test()
     schema = CommentSchema()
-    comments = Comment.query.filter(Comment.submission_id == submission_id).all()
+    comments = Comment.query.filter(
+        Comment.submission_id == submission_id
+    ).all()
     return schema.dump(comments, many=True)
 
 
 @app.route('/challenges/<int:challenge_id>/submissions/<int:submission_id>/comments', methods=['POST'])
 @as_json
 def post_comment(challenge_id, submission_id):
-    SubmissionOwnerPermission(submission_id).test()
+    #SubmissionOwnerPermission(submission_id).test()
     schema = CommentSchema()
     data = request.get_json()
+    data['user_id'] = current_user.id
     comment = Comment(**schema.load(data))
     comment.submission_id = submission_id
     comment.user_id = current_user.id

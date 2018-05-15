@@ -5,6 +5,9 @@
     <div class="container">
       <h1>{{submission.title}}</h1>
       <span v-html="$options.filters.markdown(submission.content)"></span>
+      <br>
+
+      <b-comments :submission-id="submission.id"></b-comments>
     </div>
   </div>
 </template>
