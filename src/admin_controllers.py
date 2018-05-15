@@ -2,7 +2,7 @@ from datetime import datetime
 
 from flask import request
 from flask_json import as_json
-from flak_login import current_user
+from flask_login import current_user
 
 from . import app, db
 from .schema import ChallengeSchema, SubmissionSchema, PointsSchema
