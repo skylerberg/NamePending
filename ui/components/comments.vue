@@ -1,12 +1,12 @@
 <template>
   <div>
-    <p v-for="comment in comments"><b>{{comment.user.email}}:</b><span v-html="$options.filters.markdown(comment.content)"></span><p>
+    <p v-for="comment in comments"><b>{{comment.user.name}}:</b><span v-html="$options.filters.markdown(comment.content)"></span><p>
     <form @submit.prevent="submit" class="form-group">
       <div class="form-group row">
         <textarea rows="3" class="form-control" placeholder="Write a comment..." v-model="newComment.content"></textarea>
       </div>
       <div class="form-group row">
-        <input class="form-control btn btn-success" type="submit" value="Submit">
+        <input class="form-control btn btn-primary" type="submit" value="Submit">
       </div>
     </form>
   </div>

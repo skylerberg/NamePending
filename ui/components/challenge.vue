@@ -4,7 +4,7 @@
 
     <div class="container">
       <span v-html="$options.filters.markdown(challenge.description)"></span>
-      <router-link :to="`/challenges/1/submit`"><button class="btn btn-info">Submit</button></router-link>
+      <router-link :to="`/challenges/1/submit`"><button class="btn btn-primary">Submit</button></router-link>
     </div>
   </div>
 </template>

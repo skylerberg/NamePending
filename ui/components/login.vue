@@ -15,7 +15,7 @@
           <input class="form-control" type="password" v-model:value="user.password"></input>
         </div>
         <div class="form-group">
-          <input type="submit" class="btn btn-success col-12" value="Sign In"></input>
+          <input type="submit" class="btn btn-primary col-12" value="Sign In"></input>
         </div>
       </form>
     </div>

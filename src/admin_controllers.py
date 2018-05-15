@@ -26,7 +26,7 @@ def admin_get_submissions(challenge_id):
     schema = SubmissionSchema()
     submissions = Submission.query.filter(db.and_(
         Submission.challenge_id == challenge_id
-    )).all()
+    )).order_by(Submission.created.desc()).all()
     return schema.dump(submissions, many=True)
 
 
@@ -48,7 +48,7 @@ def admin_award_points(challenge_id, submission_id):
     points = Points(**schema.load(data))
     points.submission_id = submission_id
     points.granted_by_id = current_user.id
-    points.created = datetime.now()
+    points.created = datetime.utcnow()
     db.session.add(points)
     db.session.commit()
     return schema.dump(points)

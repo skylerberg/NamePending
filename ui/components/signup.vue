@@ -7,6 +7,10 @@
     <div class="jumbotron pb-1 pt-3">
       <form @submit.prevent="login">
         <div class="form-group">
+          <label class="">Username</label>
+          <input class="form-control" type="text" v-model:value="user.name"></input>
+        </div>
+        <div class="form-group">
           <label class="">Email</label>
           <input class="form-control" type="text" v-model:value="user.email"></input>
         </div>
@@ -15,7 +19,7 @@
           <input class="form-control" type="password" v-model:value="user.password"></input>
         </div>
         <div class="form-group">
-          <input type="submit" class="btn btn-success col-12" value="Sign Up"></input>
+          <input type="submit" class="btn btn-primary col-12" value="Sign Up"></input>
         </div>
       </form>
     </div>
@@ -29,6 +33,7 @@
 function getData() {
   const data = {
     user: {
+      name: '',
       email: '',
       password: '',
     },

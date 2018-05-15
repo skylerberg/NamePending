@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import request, current_app
 from flask_json import as_json
 from flask_login import current_user, login_user
@@ -7,6 +9,7 @@ from . import app, db
 from .schema import ChallengeSchema, CommentSchema, SubmissionSchema, UserSchema
 from .models import Challenge, Comment, Submission, User
 from .permissions import SubmissionOwnerPermission
+from .enums import SubmissionStatus
 
 
 @app.route('/login', methods=['POST'])
@@ -17,7 +20,6 @@ def login():
     data = request.get_json()
     user_data = schema.load(data)
     user = User.query.filter(User.email == user_data['email']).first()
-    print(user)
     login_user(user)
     identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
     return schema.dump(user)
@@ -63,7 +65,7 @@ def get_submissions(challenge_id):
     submissions = Submission.query.filter(db.and_(
         Submission.user_id == current_user.id,
         Submission.challenge_id == challenge_id
-    )).all()
+    )).order_by(Submission.created.desc()).all()
     return schema.dump(submissions, many=True)
 
 
@@ -87,6 +89,8 @@ def post_submission(challenge_id):
     submission = Submission(**schema.load(data))
     submission.challenge_id = challenge_id
     submission.user_id = current_user.id
+    submission.created = datetime.utcnow()
+    submission.status = SubmissionStatus.IN_REVIEW.value
     db.session.add(submission)
     db.session.commit()
     return schema.dump(submission)
@@ -99,7 +103,7 @@ def get_comments(challenge_id, submission_id):
     schema = CommentSchema()
     comments = Comment.query.filter(
         Comment.submission_id == submission_id
-    ).all()
+    ).order_by(Comment.created).all()
     return schema.dump(comments, many=True)
 
 
@@ -109,10 +113,10 @@ def post_comment(challenge_id, submission_id):
     #SubmissionOwnerPermission(submission_id).test()
     schema = CommentSchema()
     data = request.get_json()
-    data['user_id'] = current_user.id
     comment = Comment(**schema.load(data))
     comment.submission_id = submission_id
     comment.user_id = current_user.id
+    comment.created = datetime.utcnow()
     db.session.add(comment)
     db.session.commit()
     return schema.dump(comment)

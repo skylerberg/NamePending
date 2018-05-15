@@ -3,12 +3,8 @@
     <b-header></b-header>
 
     <div class="container">
-      <div class="list-group">
-        <h2>Your Submissions</h2>
-        <template v-for="submission in submissions">
-          <router-link :to="`/challenges/1/submissions/${submission.id}`" class="list-group-item list-group-item-action">{{submission.title}}</router-link>
-        </template>
-      </div>
+      <h2>Your Submissions</h2>
+      <b-submissions :submissions="submissions"></b-submissions>
     </div>
   </div>
 </template>

@@ -17,7 +17,7 @@
             <textarea rows="15" class="form-control" v-model="submission.content"></textarea>
           </div>
         </div>
-        <input class="form-control btn btn-success" type="submit" value="Submit">
+        <input class="form-control btn btn-primary" type="submit" value="Submit">
       </form>
     </div>
   </div>

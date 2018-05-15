@@ -14,6 +14,7 @@ class Comment(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     submission_id = db.Column(db.Integer, db.ForeignKey('submission.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime, nullable=False)
 
     submission = db.relationship('Submission', backref='comments', foreign_keys=[submission_id])
     user = db.relationship('User', backref='comments', foreign_keys=[user_id])
@@ -26,6 +27,8 @@ class Submission(db.Model):
     title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
     score = db.Column(db.Integer, nullable=True)
+    created = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.Text, nullable=False)
 
     user = db.relationship('User', backref='submissions', foreign_keys=[user_id])
     challenge = db.relationship('Challenge', backref='submissions', foreign_keys=[challenge_id])
@@ -34,6 +37,7 @@ class Submission(db.Model):
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.Text, nullable=False)
+    name = db.Column(db.Text, nullable=False, unique=True)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
 

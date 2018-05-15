@@ -20,12 +20,14 @@ import leadersPage from './components/leaders.vue';
 
 import headerComponent from './components/header.vue';
 import commentsComponent from './components/comments.vue';
+import submissionsListComponent from './components/submissionList.vue';
 
 Vue.use(VueRouter);
 Vue.use(Vuex);
 
 Vue.component('b-header', headerComponent);
 Vue.component('b-comments', commentsComponent);
+Vue.component('b-submissions', submissionsListComponent);
 
 
 const routes = [
