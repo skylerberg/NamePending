@@ -26,7 +26,7 @@
 
 <script>
 
-const REPORT_TEMPLATE = `# Overview of vulnerability found
+const REPORT_TEMPLATE = `# Overview
 
 # Impact
 

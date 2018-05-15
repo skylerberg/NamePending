@@ -8,6 +8,7 @@ import Vuex from 'vuex';
 import App from './components/base.vue';
 
 import './filters/markdown';
+import './filters/date';
 
 import challengePage from './components/challenge.vue';
 import submitBugPage from './components/submitBug.vue';

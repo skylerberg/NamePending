@@ -1,6 +1,9 @@
 <template>
   <div>
-    <p v-for="comment in comments"><b>{{comment.user.name}}:</b><span v-html="$options.filters.markdown(comment.content)"></span><p>
+    <template v-for="comment in comments">
+      <p><b>{{comment.user.name}}</b> added a comment - {{comment.created | date}}</p>
+      <span v-html="$options.filters.markdown(comment.content)"></span>
+    </template>
     <form @submit.prevent="submit" class="form-group">
       <div class="form-group row">
         <textarea rows="3" class="form-control" placeholder="Write a comment..." v-model="newComment.content"></textarea>

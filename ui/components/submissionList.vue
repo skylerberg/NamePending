@@ -22,7 +22,7 @@
           <td>
             <b>{{submission.status}}</b>
           </td>
-          <td>{{displayDate(submission.created)}}</td>
+          <td>{{submission.created | date}}</td>
         </tr>
       </tbody>
     </table>
@@ -37,20 +37,6 @@ export default {
     showUser: {
       default: false,
     },
-  },
-  methods: {
-    displayDate: function(dateTimeStr) {
-      const options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-      };
-      const datetime = new Date(dateTimeStr);
-
-      return datetime.toLocaleDateString('en-US', options);
-    }
   },
 };
 </script>
