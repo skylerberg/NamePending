@@ -30,9 +30,8 @@ def signup():
     schema = UserSchema()
     data = request.get_json()
     user = User(**schema.load(data))
-    session = db.session()
-    session.add(user)
-    session.commit()
+    db.session.add(user)
+    db.session.commit()
     login_user(user)
     identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
     return schema.dump(user)
@@ -52,9 +51,8 @@ def post_challenge():
     schema = ChallengeSchema()
     data = request.get_json()
     challenge = Challenge(**schema.load(data))
-    session = db.session()
-    session.add(challenge)
-    session.commit()
+    db.session.add(challenge)
+    db.session.commit()
     return schema.dump(challenge)
 
 
@@ -89,9 +87,8 @@ def post_submission(challenge_id):
     submission = Submission(**schema.load(data))
     submission.challenge_id = challenge_id
     submission.user_id = current_user.id
-    session = db.session()
-    session.add(submission)
-    session.commit()
+    db.session.add(submission)
+    db.session.commit()
     return schema.dump(submission)
 
 
@@ -116,7 +113,6 @@ def post_comment(challenge_id, submission_id):
     comment = Comment(**schema.load(data))
     comment.submission_id = submission_id
     comment.user_id = current_user.id
-    session = db.session()
-    session.add(comment)
-    session.commit()
+    db.session.add(comment)
+    db.session.commit()
     return schema.dump(comment)

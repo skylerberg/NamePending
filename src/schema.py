@@ -28,3 +28,12 @@ class CommentSchema(Schema):
     user = fields.Nested(UserSchema, dump_only=True)
     submission_id = fields.Int()
     content = fields.Str(allow_none=False)
+
+
+class PointsSchema(Schema):
+    id = fields.Int(dump_only=True)
+    granted_by_id = fields.Int(dump_only=True)
+    granted_by = fields.Nested(UserSchema, dump_only=True)
+    submission_id = fields.Int(dump_only=True)
+    amount = fields.Int(allow_none=False)
+    created = fields.DateTime(dump_only=True, allow_none=False)

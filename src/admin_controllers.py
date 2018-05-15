@@ -1,9 +1,12 @@
+from datetime import datetime
+
 from flask import request
 from flask_json import as_json
+from flak_login import current_user
 
 from . import app, db
-from .schema import ChallengeSchema, SubmissionSchema
-from .models import Challenge, Submission
+from .schema import ChallengeSchema, SubmissionSchema, PointsSchema
+from .models import Challenge, Submission, Points
 
 
 @app.route('/admin/challenges', methods=['POST'])
@@ -12,9 +15,8 @@ def admin_post_challenge():
     schema = ChallengeSchema()
     data = request.get_json()
     challenge = Challenge(**schema.load(data))
-    session = db.session()
-    session.add(challenge)
-    session.commit()
+    db.session.add(challenge)
+    db.session.commit()
     return schema.dump(challenge)
 
 
@@ -39,13 +41,14 @@ def admin_get_submission(challenge_id, submission_id):
     return schema.dump(submission)
 
 
-def admin_get_comments():
-    pass
-
-
-def admin_post_comment():
-    pass
-
-
-def admin_get_comments():
-    pass
+@app.route('/admin/challenges/<int:challenge_id>/submissions/<int:submission_id>/points', methods=['POST'])
+def admin_award_points(challenge_id, submission_id):
+    schema = PointsSchema
+    data = request.get_json()
+    points = Points(**schema.load(data))
+    points.submission_id = submission_id
+    points.granted_by_id = current_user.id
+    points.created = datetime.now()
+    db.session.add(points)
+    db.session.commit()
+    return schema.dump(points)

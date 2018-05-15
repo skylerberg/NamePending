@@ -35,3 +35,13 @@ class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.Text, nullable=False)
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
+
+
+class Points(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    amount = db.Column(db.Integer, nullable=False)
+    submission_id = db.Column(db.Integer, db.ForeignKey('submission.id'), nullable=False)
+    granted_by_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    created = db.Column(db.DateTime, nullable=False)
+
+    granted_by = db.relationship('User', foreign_keys=[granted_by_id])
