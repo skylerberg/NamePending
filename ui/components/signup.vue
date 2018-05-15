@@ -42,7 +42,7 @@ export default {
   methods: {
     login: function() {
       $.post({
-        url: 'http://127.0.0.1:5001/signup',
+        url: '/signup',
         contentType: 'application/json',
         dataType: 'json',
         data: JSON.stringify(this.user),

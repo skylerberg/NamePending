@@ -39,12 +39,16 @@ const router = new VueRouter({
   routes,
 });
 
+const baseUrl = 'http://127.0.0.1:5001';
 $.ajaxSetup({
   dataType: 'json',
   contentType: 'application/json',
    xhrFields: {
     withCredentials: true
    },
+  beforeSend: function(xhr, options) {
+    options.url = baseUrl + options.url;
+  }
 })
 
 new Vue({

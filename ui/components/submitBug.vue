@@ -49,7 +49,7 @@ export default {
   methods: {
     submit: function () {
       $.post({
-        url: 'http://127.0.0.1:5001/challenges/1/submissions',
+        url: '/challenges/1/submissions',
         data: JSON.stringify(this.submission),
       }).then((submission) => {
         this.$router.push(`/challenges/${this.$route.params.challengeId}/submissions/${submission.id}`);

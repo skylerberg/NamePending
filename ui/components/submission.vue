@@ -17,7 +17,7 @@ function data() {
   };
 
   $.get({
-    url: `http://127.0.0.1:5001/challenges/${this.$route.params.challengeId}/submissions/${this.$route.params.submissionId}`
+    url: `/challenges/${this.$route.params.challengeId}/submissions/${this.$route.params.submissionId}`
   }).then((response) => {
     data.submission = response;
   });

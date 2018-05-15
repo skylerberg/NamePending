@@ -42,7 +42,7 @@ export default {
   methods: {
     login: function() {
       $.post({
-        url: 'http://127.0.0.1:5001/login',
+        url: '/login',
         data: JSON.stringify(this.user),
       }).then((data) => {
         this.$router.push('/');
