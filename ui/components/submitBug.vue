@@ -4,21 +4,7 @@
 
     <div class="container">
       <h1>Report a bug!</h1>
-      <form @submit.prevent="submit" class="form-group">
-        <div class="form-group row">
-          <label class="col-2 col-form-label">Title</label>
-          <div class="col-10">
-            <input class="form-control" type="text" v-model:value="submission.title" placeholder="Title">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label class="col-2 col-form-label">Content</label>
-          <div class="col-10">
-            <textarea rows="15" class="form-control" v-model="submission.content"></textarea>
-          </div>
-        </div>
-        <input class="form-control btn btn-primary" type="submit" value="Submit">
-      </form>
+      <b-submission-form :submission.sync="submission" @submit="submit"></b-submission-form>
     </div>
   </div>
 </template>

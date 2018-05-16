@@ -28,6 +28,7 @@ class Submission(db.Model):
     content = db.Column(db.Text, nullable=False)
     score = db.Column(db.Integer, nullable=True)
     created = db.Column(db.DateTime, nullable=False)
+    edited = db.Column(db.DateTime, nullable=True)
     status = db.Column(db.Text, nullable=False)
 
     user = db.relationship('User', backref='submissions', foreign_keys=[user_id])

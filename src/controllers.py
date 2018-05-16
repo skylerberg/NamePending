@@ -10,6 +10,7 @@ from .schema import ChallengeSchema, CommentSchema, SubmissionSchema, UserSchema
 from .models import Challenge, Comment, Submission, User
 from .permissions import SubmissionOwnerPermission
 from .enums import SubmissionStatus
+from .helpers import patch_object
 
 
 @app.route('/login', methods=['POST'])
@@ -101,6 +102,24 @@ def post_submission(challenge_id):
     submission.user_id = current_user.id
     submission.created = datetime.utcnow()
     submission.status = SubmissionStatus.IN_REVIEW.value
+    db.session.add(submission)
+    db.session.commit()
+    return schema.dump(submission)
+
+
+@app.route('/challenges/<int:challenge_id>/submissions/<int:submission_id>', methods=['PATCH'])
+@as_json
+def patch_submission(challenge_id, submission_id):
+    schema = SubmissionSchema()
+    submission = Submission.query.filter(db.and_(
+        Submission.challenge_id == challenge_id,
+        Submission.user_id == current_user.id,
+        Submission.id == submission_id,
+    )).first()
+    data = request.get_json()
+    attributes = schema.load(data, partial=True)
+    patch_object(submission, attributes)
+    submission.edited = datetime.utcnow()
     db.session.add(submission)
     db.session.commit()
     return schema.dump(submission)

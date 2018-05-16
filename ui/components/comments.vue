@@ -5,11 +5,9 @@
       <span v-html="$options.filters.markdown(comment.content)"></span>
     </template>
     <form @submit.prevent="submit" class="form-group">
-      <div class="form-group row">
-        <textarea rows="3" class="form-control" placeholder="Write a comment..." v-model="newComment.content"></textarea>
-      </div>
-      <div class="form-group row">
-        <input class="form-control btn btn-primary" type="submit" value="Submit">
+      <div class="form-group">
+        <textarea rows="2" class="form-control" placeholder="Write a comment..." v-model="newComment.content"></textarea>
+        <input class="form-control btn btn-primary" type="submit" value="Post">
       </div>
     </form>
   </div>

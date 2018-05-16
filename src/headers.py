@@ -12,4 +12,5 @@ def add_headers(response):
         response.headers['Access-Control-Allow-Origin'] = 'http://localhost:8080'
         response.headers['Access-Control-Allow-Headers'] = 'content-type, x-requested-with'
         response.headers['Access-Control-Allow-Credentials'] = 'true'
+        response.headers['Access-Control-Allow-Methods'] = 'POST, DELETE, PATCH, PUT'
     return response

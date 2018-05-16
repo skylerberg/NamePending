@@ -1,5 +1,4 @@
 from marshmallow import Schema, fields
-from marshmallow_enum import EnumField
 
 
 class UserSchema(Schema):
@@ -24,6 +23,7 @@ class SubmissionSchema(Schema):
     content = fields.Str(allow_none=False)
     score = fields.Int(dump_only=True)
     created = fields.DateTime(dump_only=True, allow_none=False)
+    edited = fields.DateTime(dump_only=True)
     status = fields.Str(dump_only=True)
 
 
