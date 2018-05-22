@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <br>
     <b-alerts></b-alerts>
     <div style="max-width:500px" class="container">

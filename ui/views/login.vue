@@ -1,8 +1,8 @@
 <template>
-  <div class="container">
+  <div>
     <br>
     <b-alerts></b-alerts>
-    <div style="max-width:500px">
+    <div class="container" style="max-width:500px">
       <br>
       <h1 class="text-center display-4">AppSec Challenges</h1>
       <br>
