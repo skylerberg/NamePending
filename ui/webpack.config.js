@@ -22,6 +22,7 @@ module.exports = {
         loader: 'vue-loader',
         include: [
           path.resolve(__dirname, 'components'),
+          path.resolve(__dirname, 'views'),
         ],
       },
       {

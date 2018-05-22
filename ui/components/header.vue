@@ -27,6 +27,8 @@
       </div>
     </nav>
     <br>
+    <b-alerts></b-alerts>
+    <br>
   </div>
 </template>
 

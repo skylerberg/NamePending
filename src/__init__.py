@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 app.secret_key = "CHANGE THIS IN PRODUCTION!"  # TODO set this through environment
 
-FlaskJSON(app)
+json = FlaskJSON(app)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///bounty.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -29,5 +29,6 @@ import src.controllers  # noqa
 import src.admin_controllers  # noqa
 import src.headers  # noqa
 import src.session  # noqa
+import src.errors  # noqa
 
 db.create_all()
