@@ -20,7 +20,7 @@
 
         <br>
 
-        <b-comments :submission-id="submission.id"></b-comments>
+        <b-comments :submission="submission"></b-comments>
       </template>
       <template v-else>
         <b-submission-form :submission.sync="submission" @submit="update"></b-submission-form>

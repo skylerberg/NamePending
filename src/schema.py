@@ -14,6 +14,13 @@ class ChallengeSchema(Schema):
     description = fields.Str(allow_none=False)
 
 
+class CommentSchema(Schema):
+    id = fields.Int(dump_only=True)
+    user_id = fields.Int()
+    user = fields.Nested(UserSchema, dump_only=True)
+    content = fields.Str(allow_none=False)
+
+
 class SubmissionSchema(Schema):
     id = fields.Int(dump_only=True)
     title = fields.Str(allow_none=False)
@@ -21,25 +28,15 @@ class SubmissionSchema(Schema):
     user = fields.Nested(UserSchema, dump_only=True)
     submission_id = fields.Int()
     content = fields.Str(allow_none=False)
-    score = fields.Int(dump_only=True)
-    created = fields.DateTime(dump_only=True, allow_none=False)
-    edited = fields.DateTime(dump_only=True)
-    status = fields.Str(dump_only=True)
+    points = fields.Int(dump_only=True)
+    comments = fields.Nested(CommentSchema, dump_only=True, many=True)
 
 
-class CommentSchema(Schema):
+class EventSchema(Schema):
     id = fields.Int(dump_only=True)
-    user_id = fields.Int()
-    user = fields.Nested(UserSchema, dump_only=True)
-    submission_id = fields.Int()
-    content = fields.Str(allow_none=False)
-    created = fields.DateTime(dump_only=True, allow_none=False)
-
-
-class PointsSchema(Schema):
-    id = fields.Int(dump_only=True)
-    granted_by_id = fields.Int(dump_only=True)
-    granted_by = fields.Nested(UserSchema, dump_only=True)
     submission_id = fields.Int(dump_only=True)
-    amount = fields.Int(allow_none=False)
-    created = fields.DateTime(dump_only=True, allow_none=False)
+    user_id = fields.Int(dump_only=True)
+    submission_id = fields.Int(dump_only=True)
+    time = fields.DateTime(dump_only=True, allow_none=False)
+    type = fields.Str(allow_none=False)
+    comment = fields.Nested(CommentSchema, allow_none=True)

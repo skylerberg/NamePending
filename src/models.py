@@ -1,6 +1,10 @@
+from datetime import datetime
+
+from sqlalchemy.orm import backref
 from flask_login import UserMixin
 
 from . import db
+from .enums import EventTypes, SubmissionStatus
 
 
 class Challenge(db.Model):
@@ -11,13 +15,10 @@ class Challenge(db.Model):
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    submission_id = db.Column(db.Integer, db.ForeignKey('submission.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
-    created = db.Column(db.DateTime, nullable=False)
 
-    submission = db.relationship('Submission', backref='comments', foreign_keys=[submission_id])
-    user = db.relationship('User', backref='comments', foreign_keys=[user_id])
+    event = db.relationship('Event', backref=backref('comment', uselist=False), foreign_keys=[event_id])
 
 
 class Submission(db.Model):
@@ -27,12 +28,28 @@ class Submission(db.Model):
     title = db.Column(db.Text, nullable=False)
     content = db.Column(db.Text, nullable=False)
     score = db.Column(db.Integer, nullable=True)
-    created = db.Column(db.DateTime, nullable=False)
-    edited = db.Column(db.DateTime, nullable=True)
-    status = db.Column(db.Text, nullable=False)
+    _status = db.Column('status', db.Text, nullable=False)
+    points = db.Column(db.Text, nullable=False, default=0)
 
     user = db.relationship('User', backref='submissions', foreign_keys=[user_id])
     challenge = db.relationship('Challenge', backref='submissions', foreign_keys=[challenge_id])
+
+    @property
+    def status(self):
+        return self._status
+
+    @status.setter
+    def status(self, value):
+        SubmissionStatus(value)  # Throw if value is not valid for this enum
+        self._status = value
+
+    @property
+    def comments(self):
+        comments = []
+        for event in self.events:
+            if event.comment:
+                comments.append(event.comment)
+        return comments
 
 
 class User(db.Model, UserMixin):
@@ -42,11 +59,26 @@ class User(db.Model, UserMixin):
     is_admin = db.Column(db.Boolean, nullable=False, default=False)
 
 
-class Points(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Integer, nullable=False)
-    submission_id = db.Column(db.Integer, db.ForeignKey('submission.id'), nullable=False)
-    granted_by_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    created = db.Column(db.DateTime, nullable=False)
+class Event(db.Model):
 
-    granted_by = db.relationship('User', foreign_keys=[granted_by_id])
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.time = datetime.now()
+
+    id = db.Column(db.Integer, primary_key=True)
+    submission_id = db.Column(db.Integer, db.ForeignKey('submission.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    time = db.Column(db.DateTime, nullable=False)
+    _type = db.COlumn('type', db.Text, nullable=False)
+
+    user = db.relationship('User', foreign_keys=[user_id])
+    submission = db.relationship('Submission', foreign_keys=[submission_id], backref='events')
+
+    @property
+    def type(self):
+        return self._type
+
+    @type.setter
+    def type(self, value):
+        EventTypes(value)  # Throw if value is not valid for this enum
+        self._type = value

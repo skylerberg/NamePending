@@ -18,39 +18,27 @@
 
 function data() {
   const data = {
-    comments: [],
     newComment: {
       content: '',
     },
+    comments: submission.comments,
   };
 
   return data;
 }
 
 export default {
-  props: ['submissionId'],
+  props: ['submission'],
   data: data,
   methods: {
     submit: function () {
       $.post({
-        url: `/challenges/1/submissions/${this.submissionId}/comments`,
+        url: `/challenges/1/submissions/${this.submission.id}/comments`,
         data: JSON.stringify(this.newComment),
       }).then((comment) => {
         this.comments.push(comment);
         this.newComment = {};
       });
-    },
-  },
-  watch: {
-    submissionId: function(newValue) {
-      if (newValue)
-      {
-        $.get({
-          url: `/challenges/1/submissions/${newValue}/comments`,
-        }).then((comments) => {
-          this.comments = comments;
-        });
-      }
     },
   },
 };
